@@ -29,11 +29,9 @@ def create_user():
     try:
         # Lấy dữ liệu từ request (JSON gửi từ client)
         data = request.get_json()
-        
         # Kiểm tra xem dữ liệu có đầy đủ các trường 'name', 'email', 'age' không
         if not data or not all(k in data for k in ['name', 'email', 'age']):
-            return jsonify({c), 400  # Trả về lỗi nếu thiếu dữ liệu
-
+            return jsonify({"error": "Missing required fields"}), 400  # Trả về lỗi nếu thiếu dữ liệu
         # Thêm dữ liệu vào bảng 'users' trong Supabase
         response = supabase.table('users').insert(data).execute()
         
